@@ -31,7 +31,7 @@ export default function CookieNotice() {
   if (!show) return null
 
   return (
-    <div className="fixed bottom-4 left-4 z-[150] w-[calc(100%-2rem)] max-w-sm">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[150] w-[calc(100%-2rem)] max-w-sm">
       <div className="rounded-lg bg-[var(--panel)] border border-[var(--border-2)] shadow-2xl p-5">
         <div className="flex items-center gap-2 mb-2">
           <Cookie size={16} className="text-[var(--accent)]" />

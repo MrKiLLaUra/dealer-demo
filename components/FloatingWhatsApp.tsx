@@ -14,15 +14,15 @@ export default function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t('wa.label')}
-      className="group fixed bottom-6 right-[5.25rem] z-50 flex items-center gap-2"
+      className="group fixed bottom-6 left-6 z-50 flex items-center gap-2"
     >
-      <span className="hidden sm:block opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--surface-dark)] text-white text-xs font-medium px-3 py-1.5 rounded-lg whitespace-nowrap shadow-lg">
-        {t('wa.label')}
-      </span>
       <span className="w-14 h-14 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-lg transition-transform hover:scale-105">
         <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
           <path d={WA_PATH} />
         </svg>
+      </span>
+      <span className="hidden sm:block opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--surface-dark)] text-white text-xs font-medium px-3 py-1.5 rounded-lg whitespace-nowrap shadow-lg">
+        {t('wa.label')}
       </span>
     </a>
   )
