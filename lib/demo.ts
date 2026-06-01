@@ -12,7 +12,7 @@
 
 export const DEMO = {
   studioName: 'Limen Studios',
-  studioUrl: process.env.NEXT_PUBLIC_STUDIO_URL || 'https://limenstudios.com',
+  studioUrl: process.env.NEXT_PUBLIC_STUDIO_URL || 'https://www.limen-studios.com',
 
   brand: 'Limen Cars',
   tagline: 'Premium cars, Limassol',

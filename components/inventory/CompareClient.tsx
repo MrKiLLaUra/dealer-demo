@@ -15,7 +15,6 @@ export default function CompareClient({ cars }: { cars: Car[] }) {
   const available = cars.filter(
     (c) => !selected.find((s) => s.id === c.id) && `${c.make} ${c.model} ${c.variant}`.toLowerCase().includes(search.toLowerCase())
   )
-
   const add = (c: Car) => selected.length < 3 && setSelected((s) => [...s, c])
   const remove = (id: string) => setSelected((s) => s.filter((c) => c.id !== id))
 
@@ -37,12 +36,12 @@ export default function CompareClient({ cars }: { cars: Car[] }) {
 
   return (
     <div className="max-w-7xl mx-auto px-6 sm:px-10 py-8 flex flex-col gap-8">
-      <div className="bg-white border border-[var(--border)] rounded-2xl p-5">
-        <p className="text-sm font-semibold text-[var(--ink)] mb-3">{t('cmp.add')}</p>
-        <input type="text" placeholder={t('cmp.searchPlaceholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="w-full max-w-md text-sm px-3 py-2.5 border border-[var(--border)] rounded-lg outline-none focus:border-[var(--accent)] mb-4" />
+      <div className="panel rounded-lg p-5">
+        <p className="eyebrow mb-3">{t('cmp.add')}</p>
+        <input type="text" placeholder={t('cmp.searchPlaceholder')} value={search} onChange={(e) => setSearch(e.target.value)} className="field max-w-md mb-4" />
         <div className="flex flex-wrap gap-2">
           {available.slice(0, 20).map((c) => (
-            <button key={c.id} onClick={() => add(c)} disabled={selected.length >= 3} className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--border)] text-sm text-[var(--ink-2)] hover:bg-[var(--bg-soft)] disabled:opacity-40 transition-colors">
+            <button key={c.id} onClick={() => add(c)} disabled={selected.length >= 3} className="flex items-center gap-2 px-3 py-1.5 rounded-sm border border-[var(--border)] text-sm text-[var(--ink-2)] hover:border-[var(--border-2)] hover:text-[var(--ink)] disabled:opacity-40 transition-colors">
               <Plus size={13} /> {c.make} {c.model}
             </button>
           ))}
@@ -51,7 +50,7 @@ export default function CompareClient({ cars }: { cars: Car[] }) {
 
       {selected.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <p className="text-xl font-bold text-[var(--ink)] mb-2 display">{t('cmp.empty')}</p>
+          <p className="text-xl font-semibold text-[var(--ink)] mb-2 display uppercase">{t('cmp.empty')}</p>
           <p className="text-sm text-[var(--ink-3)]">{t('cmp.emptySub')}</p>
         </div>
       ) : (
@@ -62,15 +61,15 @@ export default function CompareClient({ cars }: { cars: Car[] }) {
                 <th className="w-32 text-left pb-4" />
                 {selected.map((c) => (
                   <th key={c.id} className="text-left pb-4 px-3 min-w-[200px]">
-                    <div className="bg-white border border-[var(--border)] rounded-2xl overflow-hidden">
+                    <div className="panel rounded-lg overflow-hidden">
                       <div className="aspect-video bg-cover bg-center" style={{ backgroundImage: `url("${c.images[0]}")` }} />
                       <div className="p-3">
-                        <div className="font-semibold text-[var(--ink)] text-sm leading-snug">{c.make} {c.model}</div>
+                        <div className="display font-semibold text-[var(--ink)] text-sm leading-snug">{c.make} {c.model}</div>
                         <div className="text-xs text-[var(--ink-3)]">{c.variant}</div>
-                        <div className="text-base font-bold text-[var(--ink)] mt-1 display">{formatPrice(c.price)}</div>
+                        <div className="mono text-base font-semibold text-[var(--ink)] mt-1">{formatPrice(c.price)}</div>
                         <div className="mt-2 flex items-center justify-between">
-                          <Link href={`/inventory/${c.slug}`} className="text-xs font-semibold" style={{ color: 'var(--accent)' }}>{t('common.viewDetails')} →</Link>
-                          <button onClick={() => remove(c.id)} className="text-[var(--ink-3)] hover:text-red-500 transition-colors"><X size={14} /></button>
+                          <Link href={`/inventory/${c.slug}`} className="mono text-[11px] uppercase" style={{ color: 'var(--accent)' }}>{t('common.viewDetails')} →</Link>
+                          <button onClick={() => remove(c.id)} className="text-[var(--ink-3)] hover:text-[var(--accent)] transition-colors"><X size={14} /></button>
                         </div>
                       </div>
                     </div>
@@ -80,10 +79,10 @@ export default function CompareClient({ cars }: { cars: Car[] }) {
             </thead>
             <tbody>
               {ROWS.map((row, i) => (
-                <tr key={row.label} className={i % 2 === 0 ? 'bg-white' : 'bg-[var(--bg-soft)]'}>
-                  <td className="py-3 pr-4 pl-3 text-xs font-semibold uppercase tracking-wider text-[var(--ink-3)] rounded-l-xl">{row.label}</td>
+                <tr key={row.label} style={{ background: i % 2 === 0 ? 'var(--panel)' : 'transparent' }}>
+                  <td className="py-3 pr-4 pl-3 eyebrow rounded-l-sm">{row.label}</td>
                   {selected.map((c) => (
-                    <td key={c.id} className="py-3 px-3 text-sm text-[var(--ink)] font-medium">{row.render(c)}</td>
+                    <td key={c.id} className="py-3 px-3 mono text-sm text-[var(--ink)]">{row.render(c)}</td>
                   ))}
                 </tr>
               ))}

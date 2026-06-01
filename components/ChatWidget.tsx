@@ -118,7 +118,7 @@ export default function ChatWidget() {
       </button>
 
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-[340px] max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-2xl border border-[var(--border)] flex flex-col overflow-hidden">
+        <div className="fixed bottom-24 right-6 z-50 w-[340px] max-w-[calc(100vw-24px)] bg-[var(--panel)] rounded-lg shadow-2xl border border-[var(--border-2)] flex flex-col overflow-hidden">
           <div className="px-4 py-3 flex items-center gap-3 text-white" style={{ background: 'var(--surface-dark)' }}>
             <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold display shrink-0" style={{ background: 'var(--accent)' }}>LC</div>
             <div className="flex-1">
@@ -131,19 +131,19 @@ export default function ChatWidget() {
 
           <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 max-h-72 bg-[var(--bg-off)]">
             {messages.map((m, i) => (
-              <div key={i} className={`chat-message-enter max-w-[85%] px-3 py-2 rounded-xl text-sm leading-relaxed ${m.role === 'assistant' ? 'bg-white border border-[var(--border)] text-[var(--ink)] self-start' : 'text-white self-end'}`} style={m.role === 'user' ? { background: 'var(--accent)' } : undefined}>
+              <div key={i} className={`chat-message-enter max-w-[85%] px-3 py-2 rounded-md text-sm leading-relaxed ${m.role === 'assistant' ? 'bg-[var(--panel-2)] border border-[var(--border)] text-[var(--ink)] self-start' : 'text-white self-end'}`} style={m.role === 'user' ? { background: 'var(--accent)' } : undefined}>
                 {m.text}
               </div>
             ))}
             {thinking && (
-              <div className="self-start bg-white border border-[var(--border)] px-3 py-2 rounded-xl text-sm text-[var(--ink-3)] flex items-center gap-1">
+              <div className="self-start bg-[var(--panel-2)] border border-[var(--border)] px-3 py-2 rounded-md text-sm text-[var(--ink-3)] flex items-center gap-1">
                 <Loader2 size={12} className="animate-spin" /> …
               </div>
             )}
             {leadOpen && !leadDone && (
-              <div className="self-start bg-white border border-[var(--border)] rounded-xl p-3 flex flex-col gap-2 w-full chat-message-enter">
-                <input type="text" placeholder={t('chat.leadName')} value={lead.name} onChange={(e) => setLead((l) => ({ ...l, name: e.target.value }))} className="text-sm px-3 py-2 border border-[var(--border)] rounded-lg outline-none focus:border-[var(--accent)]" />
-                <input type="tel" placeholder={t('chat.leadPhone')} value={lead.phone} onChange={(e) => setLead((l) => ({ ...l, phone: e.target.value }))} className="text-sm px-3 py-2 border border-[var(--border)] rounded-lg outline-none focus:border-[var(--accent)]" />
+              <div className="self-start bg-[var(--panel-2)] border border-[var(--border)] rounded-md p-3 flex flex-col gap-2 w-full chat-message-enter">
+                <input type="text" placeholder={t('chat.leadName')} value={lead.name} onChange={(e) => setLead((l) => ({ ...l, name: e.target.value }))} className="field" />
+                <input type="tel" placeholder={t('chat.leadPhone')} value={lead.phone} onChange={(e) => setLead((l) => ({ ...l, phone: e.target.value }))} className="field" />
                 <button onClick={submitLead} className="text-sm py-2 text-white rounded-lg font-medium" style={{ background: 'var(--accent)' }}>{t('chat.leadCta')}</button>
               </div>
             )}
@@ -151,7 +151,7 @@ export default function ChatWidget() {
           </div>
 
           {!leadOpen && (
-            <div className="px-3 py-2 flex gap-1.5 overflow-x-auto border-t border-[var(--border)] bg-white no-scrollbar">
+            <div className="px-3 py-2 flex gap-1.5 overflow-x-auto border-t border-[var(--border)] bg-[var(--panel)] no-scrollbar">
               {quick.map((q) => (
                 <button key={q} onClick={() => send(t(q))} className="shrink-0 text-xs px-2.5 py-1.5 border border-[var(--border)] rounded-full text-[var(--ink-2)] hover:bg-[var(--bg-soft)] transition-colors">
                   {t(q)}
@@ -160,8 +160,8 @@ export default function ChatWidget() {
             </div>
           )}
 
-          <div className="flex items-center gap-2 p-3 border-t border-[var(--border)] bg-white">
-            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') send(input) }} placeholder={t('chat.placeholder')} className="flex-1 text-sm px-3 py-2 border border-[var(--border)] rounded-lg outline-none focus:border-[var(--accent)] bg-white" />
+          <div className="flex items-center gap-2 p-3 border-t border-[var(--border)] bg-[var(--panel)]">
+            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') send(input) }} placeholder={t('chat.placeholder')} className="field flex-1" />
             <button onClick={() => send(input)} disabled={!input.trim()} className="w-8 h-8 flex items-center justify-center text-white rounded-lg disabled:opacity-40 shrink-0" style={{ background: 'var(--accent)' }}>
               <Send size={14} />
             </button>

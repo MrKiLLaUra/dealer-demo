@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mb-10">
-      <h2 className="text-xl font-bold text-[var(--ink)] mb-3 display">{title}</h2>
+      <h2 className="text-xl font-semibold text-[var(--ink)] mb-3 display uppercase">{title}</h2>
       <div className="flex flex-col gap-3 text-sm leading-relaxed text-[var(--ink-2)]">{children}</div>
     </section>
   )
@@ -19,16 +19,16 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function LegalPage() {
   return (
     <div className="pt-[102px] min-h-screen bg-[var(--bg)]">
-      <div className="bg-white border-b border-[var(--border)]">
+      <div className="border-b border-[var(--border)]">
         <div className="max-w-3xl mx-auto px-6 sm:px-10 py-12">
-          <p className="text-xs font-bold uppercase tracking-[0.15em] mb-2" style={{ color: 'var(--accent)' }}>Transparency</p>
-          <h1 className="text-3xl sm:text-4xl font-bold text-[var(--ink)] display">Legal &amp; Privacy</h1>
+          <p className="eyebrow mb-2" style={{ color: 'var(--accent)' }}>Transparency</p>
+          <h1 className="text-4xl sm:text-5xl font-semibold text-[var(--ink)] display uppercase">Legal &amp; Privacy</h1>
           <p className="text-[var(--ink-3)] mt-2 text-sm">Please read this — it explains exactly what this website is, and isn&apos;t.</p>
         </div>
       </div>
 
       <div className="max-w-3xl mx-auto px-6 sm:px-10 py-12">
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-soft)] p-6 mb-12">
+        <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-soft)] p-6 mb-12">
           <p className="text-sm leading-relaxed text-[var(--ink)]">
             <strong>This is a demonstration website.</strong> {DEMO.disclaimer}
           </p>

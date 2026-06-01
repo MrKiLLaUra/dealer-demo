@@ -1,37 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand — confident automotive blue on near-black */
-  --accent: #1b4dd1;
-  --accent-dark: #1740ad;
-  --accent-light: #5b8bff;
+  /* Blackout / Performance system */
+  --bg: #0a0c0f;
+  --bg-off: #0d1014;
+  --bg-soft: #14181e;       /* subtle raised areas */
+  --panel: #121317;          /* cards */
+  --panel-2: #181b21;        /* inputs / nested */
+  --surface-dark: #060708;   /* footer / ribbon */
 
-  --ink: #0d1017;
-  --ink-2: #39404d;
-  --ink-3: #828a98;
+  --ink: #f4f6f9;            /* primary text */
+  --ink-2: #a6aebb;          /* secondary text */
+  --ink-3: #6b7380;          /* faint / labels */
 
-  --bg: #ffffff;
-  --bg-off: #fafbfc;
-  --bg-soft: #f3f5f8;
-  --surface-dark: #0c0f15;
+  --border: rgba(255, 255, 255, 0.10);
+  --border-2: rgba(255, 255, 255, 0.18);
 
-  --border: #e6e9ee;
+  --accent: #ff5a2e;         /* signal orange */
+  --accent-2: #ff6e46;
 
-  --shadow-sm: 0 1px 3px rgba(13,16,23,0.06), 0 4px 12px rgba(13,16,23,0.05);
-  --shadow-md: 0 2px 8px rgba(13,16,23,0.06), 0 12px 32px rgba(13,16,23,0.10);
-  --shadow-lg: 0 4px 16px rgba(13,16,23,0.08), 0 24px 64px rgba(13,16,23,0.16);
+  /* No soft shadows in this system — contrast & hairlines instead. */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
 
-  --banner-h: 34px;
+  --banner-h: 32px;
 }
 
-html {
-  scroll-behavior: auto;
-  box-sizing: border-box;
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
+html { box-sizing: border-box; scroll-behavior: auto; }
+*, *::before, *::after { box-sizing: inherit; }
 
 body {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
@@ -43,40 +40,69 @@ body {
   font-size: 15px;
 }
 
-h1, h2, h3, h4 {
-  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
+::selection { background: var(--accent); color: #fff; }
 
-.display {
-  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+h1, h2, h3, h4 {
+  font-family: "Oswald", "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: 0.005em;
 }
 
 p { line-height: 1.7; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 
-/* Hide scrollbars on horizontal scrollers */
+/* ── Type helpers ───────────────────────────────────────────── */
+.display { font-family: "Oswald", "Inter", system-ui, sans-serif; font-weight: 600; }
+.mono { font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace; }
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+/* ── Components ──────────────────────────────────────────────── */
+.panel { background: var(--panel); border: 1px solid var(--border); }
+
+.field {
+  width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--ink);
+  padding: 0.6rem 0.75rem;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.field::placeholder { color: var(--ink-3); }
+.field:focus { border-color: var(--accent); }
+select.field option { background: #14181e; color: var(--ink); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-weight: 600; font-size: 14px; border-radius: 4px;
+  transition: background 0.15s, opacity 0.15s, border-color 0.15s; cursor: pointer;
+}
+.btn-primary { background: #ffffff; color: #0a0c0f; }
+.btn-primary:hover { opacity: 0.88; }
+.btn-accent { background: var(--accent); color: #fff; }
+.btn-accent:hover { background: var(--accent-2); }
+.btn-ghost { border: 1px solid var(--border-2); color: var(--ink); }
+.btn-ghost:hover { background: rgba(255,255,255,0.06); }
+
+/* Horizontal scrollers */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* Lightbox */
 .lightbox-open { overflow: hidden; }
 
-/* Entrance animations */
-.fade-up { animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+/* Animations */
 .chat-msg, .chat-message-enter { animation: slideUp 0.18s ease forwards; }
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* 360 spin grab cursor */
-.grab { cursor: grab; }
-.grab:active { cursor: grabbing; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }

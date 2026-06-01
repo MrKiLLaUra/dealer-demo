@@ -32,7 +32,7 @@ export default function CookieNotice() {
 
   return (
     <div className="fixed bottom-4 left-4 z-[150] w-[calc(100%-2rem)] max-w-sm">
-      <div className="rounded-2xl bg-white border border-[var(--border)] shadow-2xl p-5">
+      <div className="rounded-lg bg-[var(--panel)] border border-[var(--border-2)] shadow-2xl p-5">
         <div className="flex items-center gap-2 mb-2">
           <Cookie size={16} className="text-[var(--accent)]" />
           <span className="text-sm font-semibold text-[var(--ink)]">{t('cookie.title')}</span>

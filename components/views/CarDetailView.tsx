@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Phone, Mail, Gauge, Fuel, Cog, Calendar, MapPin, QrCode, ExternalLink, Heart } from 'lucide-react'
+import { Phone, Mail, Heart, ExternalLink } from 'lucide-react'
 import type { Car } from '@/lib/types'
 import { useT } from '@/lib/i18n/context'
 import { useFavorites } from '@/lib/useFavorites'
@@ -46,10 +46,9 @@ export default function CarDetailView({ car }: { car: Car }) {
   ]
 
   return (
-    <div className="pt-[102px] bg-[var(--bg)] min-h-screen">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b border-[var(--border)]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-4 flex items-center gap-2 text-sm text-[var(--ink-3)]">
+    <div className="pt-[100px] min-h-screen" style={{ background: 'var(--bg)' }}>
+      <div className="border-b border-[var(--border)]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 py-4 flex items-center gap-2 mono text-[11px] uppercase tracking-wide text-[var(--ink-3)]">
           <Link href="/" className="hover:text-[var(--ink)]">{t('crumb.home')}</Link>
           <span>/</span>
           <Link href="/inventory" className="hover:text-[var(--ink)]">{t('crumb.inventory')}</Link>
@@ -60,49 +59,40 @@ export default function CarDetailView({ car }: { car: Car }) {
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8">
-          {/* Left */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6">
             <Gallery images={car.images} title={title} />
 
             {/* Header */}
-            <div className="bg-white border border-[var(--border)] rounded-2xl p-6">
+            <div className="panel rounded-lg p-6">
               <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                 <div>
                   <div className="mb-3"><Badges car={car} /></div>
-                  <h1 className="text-2xl sm:text-3xl font-bold text-[var(--ink)] display">{title}</h1>
-                  <p className="text-[var(--ink-3)] mt-1">{car.variant}</p>
+                  <h1 className="text-3xl sm:text-4xl font-semibold text-[var(--ink)] display uppercase leading-none">{title}</h1>
+                  <p className="text-[var(--ink-3)] mt-1.5">{car.variant}</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-3xl font-bold text-[var(--ink)] display">{formatPrice(car.price)}</div>
+                  <div className="mono text-3xl font-semibold text-[var(--ink)]">{formatPrice(car.price)}</div>
                   {car.status === 'available' && (
-                    <div className="text-xs text-[var(--ink-3)] mt-1">{t('common.from')} <span className="font-semibold text-[var(--accent)]">{formatPrice(monthly)}{t('common.perMonth')}</span></div>
+                    <div className="mono text-[11px] uppercase mt-1" style={{ color: 'var(--accent)' }}>{t('common.from')} {formatPrice(monthly)}{t('common.perMonth')}</div>
                   )}
-                  <div className="text-xs text-[var(--ink-3)] mt-1">{t('spec.ref')}: {car.ref}</div>
+                  <div className="mono text-[11px] text-[var(--ink-3)] mt-1">{t('spec.ref')}: {car.ref}</div>
                 </div>
               </div>
-
-              <div className="flex flex-wrap gap-5 py-4 border-y border-[var(--border)] text-sm text-[var(--ink-2)]">
-                <span className="flex items-center gap-2"><Calendar size={15} className="text-[var(--ink-3)]" /> {car.year}</span>
-                <span className="flex items-center gap-2"><Gauge size={15} className="text-[var(--ink-3)]" /> {formatNumber(car.mileage)} km</span>
-                <span className="flex items-center gap-2"><Fuel size={15} className="text-[var(--ink-3)]" /> {t(`fuel.${car.fuel}`)}</span>
-                <span className="flex items-center gap-2"><Cog size={15} className="text-[var(--ink-3)]" /> {t(`transmission.${car.transmission}`)}</span>
-              </div>
-
-              <div className="pt-4">
-                <h2 className="font-semibold text-[var(--ink)] mb-2">{t('spec.overview')}</h2>
+              <div className="pt-4 border-t border-[var(--border)]">
+                <h2 className="eyebrow mb-2">{t('spec.overview')}</h2>
                 <p className="text-sm text-[var(--ink-2)] leading-relaxed">{carText(car.description, locale)}</p>
-                <p className="text-sm text-[var(--ink-2)] leading-relaxed mt-3"><span className="font-semibold text-[var(--ink)]">{t('spec.history')}:</span> {carText(car.history, locale)}</p>
+                <p className="text-sm text-[var(--ink-2)] leading-relaxed mt-3"><span className="text-[var(--ink)] font-medium">{t('spec.history')}:</span> {carText(car.history, locale)}</p>
               </div>
             </div>
 
             {/* Specs */}
-            <div className="bg-white border border-[var(--border)] rounded-2xl p-6">
-              <h2 className="font-semibold text-[var(--ink)] mb-4">{t('spec.specs')}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-0">
+            <div className="panel rounded-lg p-6">
+              <h2 className="eyebrow mb-4">{t('spec.specs')}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
                 {specs.map((s) => (
-                  <div key={s.label} className="flex items-center justify-between py-2.5 text-sm" style={{ borderBottom: '1px solid var(--border)' }}>
+                  <div key={s.label} className="flex items-center justify-between py-2.5 text-sm border-b border-[var(--border)]">
                     <span className="text-[var(--ink-3)]">{s.label}</span>
-                    <span className="font-medium text-[var(--ink)] text-right">{s.value}</span>
+                    <span className="mono text-[var(--ink)] text-right text-[13px]">{s.value}</span>
                   </div>
                 ))}
               </div>
@@ -110,13 +100,11 @@ export default function CarDetailView({ car }: { car: Car }) {
 
             {/* Features */}
             {car.features.length > 0 && (
-              <div className="bg-white border border-[var(--border)] rounded-2xl p-6">
-                <h2 className="font-semibold text-[var(--ink)] mb-4">{t('spec.features')}</h2>
+              <div className="panel rounded-lg p-6">
+                <h2 className="eyebrow mb-4">{t('spec.features')}</h2>
                 <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {car.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-[var(--ink-2)]">
-                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--accent)' }} /> {f}
-                    </li>
+                    <li key={f} className="flex items-center gap-2 text-sm text-[var(--ink-2)]"><span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: 'var(--accent)' }} /> {f}</li>
                   ))}
                 </ul>
               </div>
@@ -124,33 +112,32 @@ export default function CarDetailView({ car }: { car: Car }) {
 
             {/* Video */}
             {car.video_url && (
-              <div className="bg-white border border-[var(--border)] rounded-2xl p-6">
-                <h2 className="font-semibold text-[var(--ink)] mb-4">{t('spec.video')}</h2>
-                <div className="relative aspect-video rounded-xl overflow-hidden">
+              <div className="panel rounded-lg p-6">
+                <h2 className="eyebrow mb-4">{t('spec.video')}</h2>
+                <div className="relative aspect-video rounded-md overflow-hidden">
                   <iframe src={car.video_url.replace('watch?v=', 'embed/')} className="w-full h-full" allowFullScreen title="Video" />
                 </div>
               </div>
             )}
 
-            {/* Finance */}
             {car.status === 'available' && <FinanceCalculator price={car.price} />}
 
             {/* Map */}
-            <div className="bg-white border border-[var(--border)] rounded-2xl p-6">
-              <h2 className="font-semibold text-[var(--ink)] mb-4">{t('spec.location')}</h2>
-              <div className="rounded-xl overflow-hidden aspect-[16/7]">
+            <div className="panel rounded-lg p-6">
+              <h2 className="eyebrow mb-4">{t('spec.location')}</h2>
+              <div className="rounded-md overflow-hidden aspect-[16/7]" style={{ filter: 'invert(0.92) hue-rotate(180deg)' }}>
                 <iframe src={`https://maps.google.com/maps?q=${encodeURIComponent(DEMO.mapQuery)}&z=11&output=embed`} className="w-full h-full border-0" loading="lazy" title="Map" />
               </div>
               <p className="mt-3 text-xs text-[var(--ink-3)]">{t('spec.locationNote')}</p>
             </div>
 
             {/* QR */}
-            <div className="bg-[var(--bg-soft)] border border-[var(--border)] rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5">
-              <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pageUrl)}`} alt="QR" className="w-24 h-24 rounded-xl bg-white border border-[var(--border)] p-1.5" />
+            <div className="rounded-lg p-6 flex flex-col sm:flex-row items-center gap-5" style={{ background: 'var(--bg-soft)', border: '1px solid var(--border)' }}>
+              <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pageUrl)}`} alt="QR" className="w-24 h-24 rounded-md bg-white p-1.5" />
               <div>
-                <h3 className="font-semibold text-[var(--ink)] mb-1">{t('spec.qrTitle')}</h3>
+                <h3 className="font-semibold text-[var(--ink)] mb-1 display uppercase">{t('spec.qrTitle')}</h3>
                 <p className="text-sm text-[var(--ink-3)] mb-3">{t('spec.qrSub')}</p>
-                <a href={`https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=${encodeURIComponent(pageUrl)}`} target="_blank" rel="noopener noreferrer" download className="text-sm font-medium inline-flex items-center gap-1.5" style={{ color: 'var(--accent)' }}>
+                <a href={`https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=${encodeURIComponent(pageUrl)}`} target="_blank" rel="noopener noreferrer" download className="mono text-[11px] uppercase tracking-wide inline-flex items-center gap-1.5" style={{ color: 'var(--accent)' }}>
                   <ExternalLink size={13} /> {t('spec.downloadQr')}
                 </a>
               </div>
@@ -159,27 +146,21 @@ export default function CarDetailView({ car }: { car: Car }) {
 
           {/* Sidebar */}
           <div className="flex flex-col gap-5">
-            <div className="bg-white border border-[var(--border)] rounded-2xl p-5 sticky top-[116px]">
+            <div className="panel rounded-lg p-5 sticky top-[112px]">
               <div className="flex items-center justify-between gap-3 mb-4 pb-4 border-b border-[var(--border)]">
                 <div>
-                  <div className="font-semibold text-sm text-[var(--ink)]">{DEMO.brand}</div>
+                  <div className="font-semibold text-sm text-[var(--ink)] display uppercase">{DEMO.brand}</div>
                   <div className="text-xs text-[var(--ink-3)]">{DEMO.address}</div>
                 </div>
-                <button onClick={() => toggle(car.id)} className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] shrink-0" aria-label="Save">
-                  <Heart size={15} className={fav ? 'fill-red-500 text-red-500' : 'text-[var(--ink-3)]'} />
+                <button onClick={() => toggle(car.id)} className="w-9 h-9 flex items-center justify-center rounded-sm border border-[var(--border)] shrink-0" aria-label="Save">
+                  <Heart size={15} className={fav ? 'fill-[var(--accent)] text-[var(--accent)]' : 'text-[var(--ink-3)]'} />
                 </button>
               </div>
 
               <div className="flex flex-col gap-2 mb-5">
-                <a href={`tel:${DEMO.phone.replace(/\s/g, '')}`} className="flex items-center justify-center gap-2 w-full py-2.5 text-white text-sm font-medium rounded-lg" style={{ background: 'var(--ink)' }}>
-                  <Phone size={14} /> {t('common.callDealer')}
-                </a>
-                <a href={`https://wa.me/${DEMO.whatsapp}?text=${waMsg}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#25d366] text-white text-sm font-medium rounded-lg">
-                  {t('common.whatsapp')}
-                </a>
-                <a href={`mailto:${DEMO.email}?subject=${encodeURIComponent(`${title} (${car.ref})`)}`} className="flex items-center justify-center gap-2 w-full py-2.5 border border-[var(--border)] text-sm font-medium rounded-lg text-[var(--ink-2)]">
-                  <Mail size={14} /> {t('detail.emailDealer')}
-                </a>
+                <a href={`tel:${DEMO.phone.replace(/\s/g, '')}`} className="btn btn-primary w-full py-2.5"><Phone size={14} /> {t('common.callDealer')}</a>
+                <a href={`https://wa.me/${DEMO.whatsapp}?text=${waMsg}`} target="_blank" rel="noopener noreferrer" className="btn w-full py-2.5 text-white" style={{ background: '#25d366' }}>{t('common.whatsapp')}</a>
+                <a href={`mailto:${DEMO.email}?subject=${encodeURIComponent(`${title} (${car.ref})`)}`} className="btn btn-ghost w-full py-2.5"><Mail size={14} /> {t('detail.emailDealer')}</a>
               </div>
 
               <InquiryForm defaultType="test_drive" />
@@ -187,11 +168,10 @@ export default function CarDetailView({ car }: { car: Car }) {
           </div>
         </div>
 
-        {/* Related */}
         {related.length > 0 && (
           <div className="mt-16">
-            <h2 className="text-2xl font-bold text-[var(--ink)] mb-6 display">{t('spec.related')}</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <h2 className="text-2xl font-semibold text-[var(--ink)] mb-6 display uppercase">{t('spec.related')}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {related.map((c) => <CarCard key={c.id} car={c} />)}
             </div>
           </div>

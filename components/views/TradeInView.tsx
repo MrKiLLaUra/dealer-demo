@@ -28,16 +28,33 @@ export default function TradeInView() {
     },
   ]
 
+  const steps = [t('trade.h1'), t('trade.h2'), t('trade.h3')]
+
   return (
-    <div className="pt-[102px] min-h-screen bg-[var(--bg)]">
-      <div className="bg-white border-b border-[var(--border)]">
+    <div className="pt-[100px] min-h-screen" style={{ background: 'var(--bg)' }}>
+      <div className="border-b border-[var(--border)]">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-12">
-          <p className="text-xs font-bold uppercase tracking-[0.15em] mb-2" style={{ color: 'var(--accent)' }}>{t('trade.eyebrow')}</p>
-          <h1 className="text-3xl sm:text-4xl font-bold text-[var(--ink)] display">{t('trade.title')}</h1>
-          <p className="text-[var(--ink-3)] mt-2 max-w-xl">{t('trade.sub')}</p>
+          <p className="eyebrow mb-2" style={{ color: 'var(--accent)' }}>{t('trade.eyebrow')}</p>
+          <h1 className="text-4xl sm:text-6xl font-semibold text-[var(--ink)] display uppercase leading-none">{t('trade.title')}</h1>
+          <p className="text-[var(--ink-3)] mt-3 max-w-xl">{t('trade.sub')}</p>
         </div>
       </div>
-      <div className="max-w-2xl mx-auto px-6 sm:px-10 py-12">
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 py-14 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-12">
+        {/* Rail */}
+        <div>
+          <p className="eyebrow mb-7" style={{ color: 'var(--accent)' }}>{t('trade.how')}</p>
+          <div className="flex flex-col">
+            {steps.map((s, i) => (
+              <div key={i} className="flex items-start gap-5 py-6 border-t border-[var(--border)]">
+                <span className="mono text-3xl font-semibold shrink-0" style={{ color: 'var(--accent)' }}>{String(i + 1).padStart(2, '0')}</span>
+                <p className="text-lg text-[var(--ink)] display uppercase leading-snug pt-1">{s}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Form */}
         <LeadForm groups={groups} submitLabel={t('trade.submit')} />
       </div>
     </div>

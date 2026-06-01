@@ -37,10 +37,7 @@ export default function LanguageToggle({ className }: { className?: string }) {
       </button>
 
       {open && (
-        <div
-          className="absolute right-0 mt-2 w-44 rounded-xl bg-white border border-[var(--border)] shadow-lg overflow-hidden z-[60]"
-          style={{ boxShadow: 'var(--shadow-md)' }}
-        >
+        <div className="absolute right-0 mt-2 w-44 rounded-md bg-[var(--panel)] border border-[var(--border)] overflow-hidden z-[60]">
           {LOCALES.map((l) => (
             <button
               key={l.code}
