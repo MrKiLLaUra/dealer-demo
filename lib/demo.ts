@@ -27,4 +27,27 @@ export const DEMO = {
 
   disclaimer:
     'This is a fictional demonstration website created by Limen Studios. All vehicles, prices, photos, VINs, history notes, reviews and contact details are illustrative only and do not represent real cars for sale, real people, or a real, licensed dealership.',
+
+  // ── Legal / privacy facts ─────────────────────────────────────────────
+  // Real, accurate-to-this-demo values used by the /legal page. The studio
+  // (Limen Studios) is the operator and data controller for this demo.
+  controller: 'Limen Studios',
+  jurisdiction: 'Cyprus',
+
+  // EU/Cyprus data-protection supervisory authority (right-to-complain).
+  supervisoryAuthority: {
+    name: 'Office of the Commissioner for Personal Data Protection (Cyprus)',
+    url: 'https://www.dataprotection.gov.cy',
+  },
+
+  // Effective date shown as "Last updated" and referenced by the changes clause.
+  legalLastUpdated: '2 June 2026',
+
+  // The only data this site stores: three first-party, functional localStorage
+  // keys. Documented here so the privacy notice provably matches the code.
+  storageKeys: [
+    { key: 'lc_cookie_ack', purpose: 'Remembers that you dismissed the cookie / transparency notice.' },
+    { key: 'lc_favorites', purpose: 'Remembers the cars you tap “save” on, so they persist between visits.' },
+    { key: 'lc_locale', purpose: 'Remembers your chosen language.' },
+  ],
 } as const
